@@ -3,11 +3,11 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC3aaCCGz9assEjxI7mcAjvchFIsoEeVeQ",
-  authDomain: "kids-task-app-92292.firebaseapp.com",
-  projectId: "kids-task-app-92292",
-  messagingSenderId: "420924002308",
-  appId: "1:420924002308:web:35396e95a9713baeb72551"
+  apiKey:            import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain:        import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId:         import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId:             import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
