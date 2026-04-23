@@ -1,3 +1,4 @@
+/*
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
@@ -22,4 +23,15 @@ export default defineConfig({
       }
     })
   ]
+})
+*/
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  base: './',   // ← Capacitor用に相対パスに変更
+  build: {
+    outDir: 'dist',
+  },
 })
