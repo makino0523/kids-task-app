@@ -5,7 +5,7 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "../firebase";
 
-const RATE = 1; // 1コイン = 1円（必要に応じて変更）
+const RATE = 0.1; // 1コイン = 1円（必要に応じて変更）
 
 export default function CashManager({ userData }) {
   const [cashLogs, setCashLogs]     = useState([]);

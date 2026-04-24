@@ -14,6 +14,7 @@ const CATEGORY_COLORS = {
   "宿題":     { bg: "#eff6ff", border: "#3b82f6", badge: "#3b82f6" },
   "習い事":   { bg: "#f0fdf4", border: "#22c55e", badge: "#22c55e" },
   "お手伝い": { bg: "#fff7ed", border: "#f97316", badge: "#f97316" },
+  "生活":     { bg: "#fdf4ff", border: "#a855f7", badge: "#a855f7" },
 };
 
 const RARITY_STYLES = {
@@ -91,6 +92,7 @@ export default function ParentHome({ userData }) {
   const [editMachine, setEditMachine]     = useState(null); // 編集中の機械ID
   const [editMachineForm, setEditMachineForm] = useState(null); // 編集フォームの値
   const [savingMachine, setSavingMachine] = useState(false);
+  const [familyInfo, setFamilyInfo] = useState(null);
 
   // タスク追加フォーム
   const [form, setForm] = useState({
@@ -132,6 +134,14 @@ export default function ParentHome({ userData }) {
     });
     return () => { unsubFamily(); unsubList.forEach(fn => fn()); };
   }, [familyId]);
+
+    // 家族情報を取得
+useEffect(() => {
+  if (!familyId) return;
+  return onSnapshot(doc(db, "families", familyId), snap => {
+    if (snap.exists()) setFamilyInfo(snap.data());
+  });
+}, [familyId]);
 
   // 承認待ちログ
   useEffect(() => {
@@ -598,6 +608,36 @@ function nextMonth() {
             ))}
           </div>
         )}
+        {/* 招待コード表示 */}
+{familyInfo && (
+  <div style={{
+    marginTop: 10,
+    background: "rgba(255,255,255,0.15)", borderRadius: 14,
+    padding: "10px 14px", backdropFilter: "blur(8px)",
+    display: "flex", alignItems: "center", justifyContent: "space-between",
+    gap: 12,
+  }}>
+    <div>
+      <div style={{ color: "rgba(255,255,255,0.7)", fontSize: 11, marginBottom: 2 }}>
+        家族グループ
+      </div>
+      <div style={{ color: "white", fontWeight: 900, fontSize: 15 }}>
+        {familyInfo.name}
+      </div>
+    </div>
+    <div style={{ textAlign: "right" }}>
+      <div style={{ color: "rgba(255,255,255,0.7)", fontSize: 11, marginBottom: 2 }}>
+        招待コード
+      </div>
+      <div style={{
+        color: "#fde68a", fontWeight: 900, fontSize: 20,
+        letterSpacing: 4,
+      }}>
+        {familyInfo.inviteCode}
+      </div>
+    </div>
+  </div>
+)}
       </div>
 
       {/* タブ */}
@@ -1114,7 +1154,7 @@ function nextMonth() {
             </div>
             {/* カテゴリ */}
             <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
-              {["宿題","習い事","お手伝い"].map(cat => (
+              {["宿題","習い事","お手伝い","生活"].map(cat => (
                 <button key={cat}
                   onClick={() => updateTemplateTask(idx, "category", cat)}
                   style={{
@@ -1306,7 +1346,7 @@ function nextMonth() {
               </div>
               {/* カテゴリ */}
               <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
-                {["宿題","習い事","お手伝い"].map(cat => (
+                {["宿題","習い事","お手伝い","生活"].map(cat => (
                   <button key={cat}
                     onClick={() => setEditTemplateForm(f => ({
                       ...f,
@@ -1450,7 +1490,7 @@ function nextMonth() {
 
         {/* カテゴリ */}
         <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
-          {["宿題","習い事","お手伝い"].map(cat => (
+          {["宿題","習い事","お手伝い","生活"].map(cat => (
             <button key={cat} onClick={() => setTodayForm(f => ({ ...f, category: cat }))} style={{
               flex: 1, padding: "8px 4px", borderRadius: 10,
               fontSize: 12, fontWeight: 700, cursor: "pointer",
@@ -1577,7 +1617,7 @@ function nextMonth() {
 
                   {/* カテゴリ */}
                   <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
-                    {["宿題","習い事","お手伝い"].map(cat => (
+                    {["宿題","習い事","お手伝い","生活"].map(cat => (
                       <button key={cat} onClick={() => setEditForm(f => ({ ...f, category: cat }))} style={{
                         flex: 1, padding: "8px 4px", borderRadius: 10,
                         fontSize: 12, fontWeight: 700, cursor: "pointer",

@@ -13,6 +13,7 @@ const CATEGORY_COLORS = {
   "宿題":     { bg: "#eff6ff", border: "#3b82f6", badge: "#3b82f6" },
   "習い事":   { bg: "#f0fdf4", border: "#22c55e", badge: "#22c55e" },
   "お手伝い": { bg: "#fff7ed", border: "#f97316", badge: "#f97316" },
+  "生活":     { bg: "#fdf4ff", border: "#a855f7", badge: "#a855f7" },
 };
 
 const RARITY_STYLES = {
