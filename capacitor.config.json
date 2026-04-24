@@ -1,5 +1,14 @@
 {
   "appId": "com.family.taskapp",
   "appName": "がんばりボード",
-  "webDir": "dist"
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "server": {
+    "cleartext": true,
+    "androidScheme": "https"
+  }
 }
